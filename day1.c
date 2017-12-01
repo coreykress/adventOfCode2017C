@@ -7,6 +7,7 @@ int main()
     int inputLength, sum, stepSize, currentSum, currentValue, nextArrayIndex;
     int summable[256]; //remove and use malloc
 
+    currentSum = 0;
     stepSize = 1;
     inputLength = strlen(input);
 
@@ -19,13 +20,12 @@ int main()
         }
 
         if (currentValue != input[nextArrayIndex] - '0') {
-    //         currentSum = 0;
     //         for (int j = 0; j < (sizeof(summable) / sizeof(summable[0])); j++) {
     //             currentSum += summable[j];
     //         }
     //         sum += currentSum;
-    //         summable = [];
-    //         continue;
+            summable = [];
+            continue;
         }
     //
     //     int nextValue input[];
