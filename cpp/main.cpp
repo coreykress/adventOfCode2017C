@@ -14,16 +14,16 @@ int calcValue (std::string str, int step) {
             nextIndex -= str.size();
         }
 
-        int nextValue = str[nextIndex];
-
-        std::cout << str[i];
-//        std::cout << nextValue << std::endl;
+        int nextValue = str[nextIndex] - '0';
 
         if (currentValue != nextValue) {
             //add the sum of summable to the total sum
+            if (!summable.size()) {
+                continue;
+            }
             int vecSum = 0;
-            for (int& n : summable) {
-                vecSum += n;
+            for (int n = 0; n < summable.size() ; n++) {
+                vecSum += summable.at(n);
             }
             sum += vecSum;
 
@@ -36,11 +36,14 @@ int calcValue (std::string str, int step) {
     }
 
     //add the sum of summable to the total sum
-    int vecSum = 0;
-    for (int& n : summable) {
-        vecSum += n;
+    if (summable.size() > 0) {
+
+        int vecSum = 0;
+        for (int n = 0; n < summable.size() ; n++) {
+            vecSum += summable.at(n);
+        }
+        sum += vecSum;
     }
-    sum += vecSum;
 
     return sum;
 }
@@ -64,11 +67,13 @@ int main( int argc, char *argv[] ) {
     buffer << file.rdbuf();
     std::string str = buffer.str();
 
-    std::cout<< str.size() <<std::endl;
-
     int first = calcValue(str, 1);
 
     std::cout << first << std::endl;
+
+    int second = calcValue(str, (str.size()/2));
+
+    std::cout << second << std::endl;
 
     return 0;
 }
