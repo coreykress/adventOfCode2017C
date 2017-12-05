@@ -32,6 +32,7 @@ int main (int argc, char *argv[])
     std::string line;
     std::ifstream file(argv[1]);
     int sum = 0;
+    int part2Sum = 0;
 
     // check to see if the file opening succeeded
     if (!file.is_open()) {
@@ -41,13 +42,36 @@ int main (int argc, char *argv[])
 
     while (std::getline(file, line)) {
         std::vector<int> currentRowValues = splitLine(line, '\t');
+        //part 1
         auto max = *std::max_element(currentRowValues.begin(), currentRowValues.end());
         auto min = *std::min_element(currentRowValues.begin(), currentRowValues.end());
 
         sum += (max - min);
+
+        //part 2
+        while (currentRowValues.size()) {
+            bool done = false;
+            int rowValue = currentRowValues.at(0);
+            currentRowValues.erase(currentRowValues.begin() + 0);
+            for (int n: currentRowValues) {
+                if (rowValue % n == 0) {
+                    part2Sum += (rowValue / n);
+                    done = true;
+                    break;
+                } else if (n % rowValue == 0) {
+                    part2Sum += (n / rowValue);
+                    done = true;
+                    break;
+                }
+            }
+            if (done) {
+                break;
+            }
+        }
     }
 
     std::cout << sum << std::endl;
+    std::cout << part2Sum << std::endl;
 
     return 0;
 }
